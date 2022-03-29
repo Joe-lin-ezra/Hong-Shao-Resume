@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { LayoutBar } from './components/LayoutBar';
 
 function App() {
   return (
-    <div className="App">
-      
+    <div className="container">
+      <LayoutBar />
     </div>
   );
 }
