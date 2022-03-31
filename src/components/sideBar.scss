@@ -1,8 +1,9 @@
 .sidebar {
-    width: clamp(184px, 20vw, 240px);
+    width: clamp(192px, 28vw, 240px);
 }
 
-.icons {
-    margin-right: 12px;
-    // color: blue;
+// fix the blue & underline text, resulted from <Link>
+.listItem {
+    color: rgba(0, 0, 0, 0.6);
+    text-decoration: none;
 }
