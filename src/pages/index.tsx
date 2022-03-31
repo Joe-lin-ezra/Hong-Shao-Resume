@@ -1,0 +1,23 @@
+import { biographyPage } from './biographyPage';
+import { cvPage } from './cvPage';
+import { homePage } from './homePage';
+import { landingPage } from './landingPage';
+import { languagePage  } from './languagePage';
+import { notFoundPage } from './notFoundPage';
+import { projectExperiencePage } from './projectExperiencePage';
+import { schoolPage } from './schoolPage';
+import { skillPage } from './skillPage';
+import { workPage } from './workPage';
+import { underConstructPage } from './underConstructPage';
+
+export const BiographyPage = biographyPage;
+export const CVPage = cvPage;
+export const HomePage = homePage;
+export const LandingPage = landingPage;
+export const LanguagePage = languagePage;
+export const NotFoundPage = notFoundPage;
+export const ProjectExperiencePage = projectExperiencePage;
+export const SchoolPage = schoolPage;
+export const SkillPage = skillPage;
+export const WorkPage = workPage;
+export const UnderConstructPage = underConstructPage;

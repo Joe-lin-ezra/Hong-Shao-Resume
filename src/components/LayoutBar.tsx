@@ -1,24 +1,25 @@
 import * as React from 'react';
 
+
+import { Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import { AppBar, Toolbar } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { StyledEngineProvider } from '@mui/material/styles';
 
 import { Sidebar } from './SideBar';
 
+
 import './layoutBar.scss'
 
-export const LayoutBar = () => {
+export const LayoutBar = (props: any) => {
   const [sidebarState, setSidebarState] = React.useState<boolean>(false);
   const toggleSidebar = (state: boolean) => () => {
     setSidebarState(state);
   };
 
   return (
-    <StyledEngineProvider injectFirst>
+    <div>
       <Box id={'layout'}>
         <AppBar className={'appBar'}>
           <Toolbar>
@@ -34,6 +35,8 @@ export const LayoutBar = () => {
           close={toggleSidebar(false)}
         />
       </Box>
-    </StyledEngineProvider>
+      <Outlet />
+    </div>
+      
   );
 }
