@@ -24,6 +24,8 @@
     $ yarn run start
     ```
 
+3. open the url: localhost:(port)/home
+
 ## Description
 
 * The project is for Monosparta 31/3/2022 homework.
