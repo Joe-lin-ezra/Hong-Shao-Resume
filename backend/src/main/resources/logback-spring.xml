@@ -20,7 +20,7 @@
     <property name="LOG_DIR" value="${LOG_HOME}/%d{yyyyMMdd}" />
 
     <!--對日誌進行格式化-->
-<!--    <property name="LOG_MSG" value="- | [%X{requestUUID}] | [%d{yyyyMMdd HH:mm:ss.SSS}] | [%level] | [${HOSTNAME}] | [%thread] | [%logger{36}] | &ndash;&gt; %msg|%n "/>-->
+   <!-- <property name="LOG_MSG" value="- | [%X{requestUUID}] | [%d{yyyyMMdd HH:mm:ss.SSS}] | [%level] | [${HOSTNAME}] | [%thread] | [%logger{36}] | &ndash;&gt; %msg|%n "/> -->
     <property name="LOG_MSG" value="- [%d{yyyy/MM/dd HH:mm:ss.SSS}] | [%level] | [%logger{36}] |  %msg|%n "/>
     <!--檔案大小，預設10MB-->
     <property name="MAX_FILE_SIZE" value="50MB" />
@@ -114,7 +114,7 @@
         <appender-ref ref="${STDOUT}"/>
 
         <!-- FILE_ALL 日誌輸出新增到 logger -->
-        <appender-ref ref="FILE_ALL"/>
+        <!-- <appender-ref ref="FILE_ALL"/> -->
 
         <!-- FILE_ERROR 日誌輸出新增到 logger -->
         <appender-ref ref="FILE_ERROR"/>
