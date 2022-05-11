@@ -14,7 +14,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Document(collection = "users")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor()
+@AllArgsConstructor
 @Builder
 public class User {
     @Id
