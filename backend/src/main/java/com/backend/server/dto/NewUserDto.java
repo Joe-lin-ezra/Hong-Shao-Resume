@@ -16,6 +16,9 @@ public class NewUserDto {
     private String username;
     @NotNull
     @NotBlank
+    private String nickname;
+    @NotNull
+    @NotBlank
     private String password;
     @NotNull
     @NotBlank

@@ -1,0 +1,26 @@
+spring:
+  devtools:
+    add-properties: true
+    livereload:
+      enabled: true
+      port: 35729
+    remote:
+      restart:
+        enabled: true
+      secret:
+      secret-header-name: X-AUTH-TOKEN
+      context-path: /.~~spring-boot!~
+      proxy:
+        host:
+        port:
+    restart:
+      enabled: true
+      exclude: META-INF/maven/**,META-INF/resources/**,resources/**,static/**,public/**,templates/**,**/*Test.class,**/*Tests.class,git.properties,META-INF/build-info.properties
+      additional-exclude:
+      trigger-file:
+      additional-paths:
+      log-condition-evaluation-delta: true
+      poll-interval: 1s
+      quiet-period: 400ms
+
+# ref: https://medium.com/learning-from-jhipster/12-spring-boot-%E4%BD%BF%E7%94%A8-devtools-ece4df0de531
