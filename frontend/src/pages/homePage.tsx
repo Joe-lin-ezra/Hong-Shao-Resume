@@ -5,11 +5,11 @@ import { Box, Avatar, Divider, Typography, List, ListItem, ListItemButton, ListI
 import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot, TimelineOppositeContent } from '@mui/lab';
 import { GitHub, LocalPhoneOutlined, EmailOutlined } from '@mui/icons-material';
 
-import './homePage.scss';
+import './HomePage.scss';
 import '../utils/font-format.scss';
 import avatar from '../assets/avatar.png';
 
-export const homePage = (): JSX.Element => {
+export const HomePage = (): JSX.Element => {
   return (
     <Box className={'homePage'}>
       <div id="bg" />

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 import '../utils/font-format.scss';
 
-export const cvPage = (): JSX.Element => {
+export const CVPage = (): JSX.Element => {
   return (
     <Box>
 

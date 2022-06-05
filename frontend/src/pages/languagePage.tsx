@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 import '../utils/font-format.scss';
 
-export const languagePage = (): JSX.Element => {
+export const LanguagePage = (): JSX.Element => {
   return (
     <Box>
 
