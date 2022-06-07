@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 日誌根目錄-->
+    <springProperty scope="context" name="LOG_HOME" source="logging.path" defaultValue="data/logs/spring-boot-logback"/>
+
+    <!-- 日誌級別 -->
+    <springProperty scope="context" name="LOG_ROOT_LEVEL" source="logging.level.root" defaultValue="DEBUG"/>
+
+    <!--  標識這個"STDOUT" 將會新增到這個logger -->
+    <springProperty scope="context" name="STDOUT" source="log.stdout" defaultValue="STDOUT"/>
+
+    <!-- 日誌檔名稱-->
+    <property name="LOG_PREFIX" value="spring-boot-logback" />
+
+    <!-- 日誌檔案編碼-->
+    <property name="LOG_CHARSET" value="UTF-8" />
+
+    <!-- 日誌檔案路徑+日期-->
+    <property name="LOG_DIR" value="${LOG_HOME}/%d{yyyyMMdd}" />
+
+    <!--對日誌進行格式化-->
+   <!-- <property name="LOG_MSG" value="- | [%X{requestUUID}] | [%d{yyyyMMdd HH:mm:ss.SSS}] | [%level] | [${HOSTNAME}] | [%thread] | [%logger{36}] | &ndash;&gt; %msg|%n "/> -->
+    <property name="LOG_MSG" value="- [%d{yyyy/MM/dd HH:mm:ss.SSS}] | [%level] | [%logger{36}] |  %msg|%n "/>
+    <!--檔案大小，預設10MB-->
+    <property name="MAX_FILE_SIZE" value="50MB" />
+
+    <!-- 配置日誌的滾動時間 ，表示只保留最近 10 天的日誌-->
+    <property name="MAX_HISTORY" value="10"/>
+
+    <!--輸出到控制檯-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 輸出的日誌內容格式化-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${LOG_MSG}</pattern>
+        </layout>
+    </appender>
+
+    <!--輸出到檔案-->
+    <appender name="0" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    </appender>
+
+    <!-- 定義 ALL 日誌的輸出方式:-->
+<!--    <appender name="FILE_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash;日誌檔案路徑，日誌檔名稱&ndash;&gt;-->
+<!--        <File>${LOG_HOME}/all_${LOG_PREFIX}.log</File>-->
+
+<!--        &lt;!&ndash; 設定滾動策略，當天的日誌大小超過 ${MAX_FILE_SIZE} 檔案大小時候，新的內容寫入新的檔案， 預設10MB &ndash;&gt;-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+
+<!--            &lt;!&ndash;日誌檔案路徑，新的 ALL 日誌檔名稱，“ i ” 是個變數 &ndash;&gt;-->
+<!--            <FileNamePattern>${LOG_DIR}/all_${LOG_PREFIX}%i.log</FileNamePattern>-->
+
+<!--            &lt;!&ndash; 配置日誌的滾動時間 ，表示只保留最近 10 天的日誌&ndash;&gt;-->
+<!--            <MaxHistory>${MAX_HISTORY}</MaxHistory>-->
+
+<!--            &lt;!&ndash;當天的日誌大小超過 ${MAX_FILE_SIZE} 檔案大小時候，新的內容寫入新的檔案， 預設10MB&ndash;&gt;-->
+<!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--                <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>-->
+<!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+
+<!--        </rollingPolicy>-->
+
+<!--        &lt;!&ndash; 輸出的日誌內容格式化&ndash;&gt;-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            <pattern>${LOG_MSG}</pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+    <!-- 定義 ERROR 日誌的輸出方式:-->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 下面為配置只輸出error級別的日誌 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <!--日誌檔案路徑，日誌檔名稱-->
+        <File>${LOG_HOME}/err_${LOG_PREFIX}.log</File>
+
+        <!-- 設定滾動策略，當天的日誌大小超過 ${MAX_FILE_SIZE} 檔案大小時候，新的內容寫入新的檔案， 預設10MB -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!--日誌檔案路徑，新的 ERR 日誌檔名稱，“ i ” 是個變數 -->
+            <FileNamePattern>${LOG_DIR}/err_${LOG_PREFIX}%i.log</FileNamePattern>
+
+            <!-- 配置日誌的滾動時間 ，表示只保留最近 10 天的日誌-->
+            <MaxHistory>${MAX_HISTORY}</MaxHistory>
+
+            <!--當天的日誌大小超過 ${MAX_FILE_SIZE} 檔案大小時候，新的內容寫入新的檔案， 預設10MB-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <!-- 輸出的日誌內容格式化-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${LOG_MSG}</Pattern>
+        </layout>
+    </appender>
+
+    <!-- additivity 設為false,則logger內容不附加至root ，配置以配置包下的所有類的日誌的列印，級別是 ERROR-->
+
+    <logger name="org.springframework"     level="ERROR" />
+    <logger name="org.apache.commons"      level="ERROR" />
+    <logger name="org.apache.zookeeper"    level="ERROR"  />
+    <logger name="com.alibaba.dubbo.monitor" level="ERROR"/>
+    <logger name="com.alibaba.dubbo.remoting" level="ERROR" />
+
+    <!-- ${LOG_ROOT_LEVEL} 日誌級別 -->
+    <root level="${LOG_ROOT_LEVEL}">
+
+        <!-- 標識這個"${STDOUT}"將會新增到這個logger -->
+        <appender-ref ref="${STDOUT}"/>
+
+        <!-- FILE_ALL 日誌輸出新增到 logger -->
+        <!-- <appender-ref ref="FILE_ALL"/> -->
+
+        <!-- FILE_ERROR 日誌輸出新增到 logger -->
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
+
+</configuration>
