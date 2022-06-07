@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 60 * 60)
@@ -34,20 +36,48 @@ public class CommentController {
   @Autowired private JwtUtil jwtUtil;
 
   @GetMapping(value = "/comments", produces = "application/json")
-  public Object getAllComment() {
+  public Object getComments( @RequestHeader HttpHeaders header, @RequestParam Map<String, String> queryMap) {
+    System.out.println(queryMap);
+    if (queryMap.isEmpty()) {
+      return getAllComments();
+    }
+
+
     try {
-      List<Comment> allComments = commentService.findAll();
-      System.out.println(allComments);
-      List<CommentDto> commentDtos = commentService.addNickname(allComments);
+      String bearerToken = header.getFirst("Authorization");
+      if (Objects.isNull(bearerToken) || !jwtUtil.validateJwtToken(bearerToken.split(" ")[1])) {
+        return new ResponseEntity<>(
+                new ResponseMessage("Unauthorized"), null, HttpStatus.UNAUTHORIZED);
+      }
+
+      List<Comment> filteredComments = commentService.findSpecificComments(queryMap.getOrDefault("q", ""));
+      System.out.println(filteredComments);
+      List<CommentDto> commentDtos = commentService.addNickname(filteredComments);
 
       return new ResponseEntity<>(
-          new ResponseMessage("All comments order by created date.", commentDtos),
-          null,
-          HttpStatus.OK);
+              new ResponseMessage("All queried  comments order by created date.", commentDtos),
+              null,
+              HttpStatus.OK);
     } catch (Exception exception) {
       logger.error("Fail when login: ", exception);
       return new ResponseEntity<>(
-          new ResponseMessage("Internal Server Error"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+              new ResponseMessage("Internal Server Error"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  private Object getAllComments() {
+    try {
+      List<Comment> allComments = commentService.findAll();
+      List<CommentDto> commentDtos = commentService.addNickname(allComments);
+
+      return new ResponseEntity<>(
+              new ResponseMessage("All comments order by created date.", commentDtos),
+              null,
+              HttpStatus.OK);
+    } catch (Exception exception) {
+      logger.error("Fail when login: ", exception);
+      return new ResponseEntity<>(
+              new ResponseMessage("Internal Server Error"), null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

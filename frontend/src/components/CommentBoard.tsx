@@ -25,6 +25,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import SearchIcon from "@mui/icons-material/Search";
 import { Map } from "typescript";
 
 export const CommentBoard = (props: {
@@ -42,7 +43,9 @@ export const CommentBoard = (props: {
     new Comment("", "", "", "", new Date())
   );
 
-  React.useEffect(() => {getAllComments()}, []);
+  React.useEffect(() => {
+    getAllComments();
+  }, []);
 
   const getAllComments = () => {
     Axios.get("http://127.0.0.1:8787/api/comments", {
@@ -74,6 +77,39 @@ export const CommentBoard = (props: {
       });
   };
 
+  const searchRefComment = () => {
+    Axios.get("http://127.0.0.1:8787/api/comments?q=" + commentInput, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("bearer_token"),
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true",
+      },
+    })
+      .then((response: any) => {
+        // console.log(response);
+        const comments = response["data"]["data"];
+        // console.log(comments);
+        comments.forEach((comment: any) => {
+          if (typeof comment.updateDate === "string") {
+            comment.updateDate =
+              comment.updateDate.slice(0, comment.updateDate.indexOf("T")) +
+              " " +
+              comment.updateDate.slice(
+                comment.updateDate.indexOf("T") + 1,
+                comment.updateDate.indexOf(".")
+              );
+          }
+        });
+        setCommentInput("");
+        setComments(comments);
+        addNewCommentMoreMenu(comments);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+
   const sendComment = () => {
     if (updatedComment.id === "") {
       const data = JSON.stringify({ description: commentInput });
@@ -89,7 +125,7 @@ export const CommentBoard = (props: {
         .then((response: any) => {
           // console.log(response);
           setCommentInput("");
-          getAllComments()
+          getAllComments();
         })
         .catch((error: any) => {
           console.log(error);
@@ -115,7 +151,7 @@ export const CommentBoard = (props: {
           console.log(response);
           setCommentInput("");
           setUpdatedComment(new Comment("", "", "", "", new Date()));
-          getAllComments()
+          getAllComments();
         })
         .catch((error: any) => {
           console.log(error);
@@ -139,7 +175,7 @@ export const CommentBoard = (props: {
     })
       .then((response: any) => {
         console.log(response);
-        getAllComments()
+        getAllComments();
       })
       .catch((error: any) => {
         console.log(error);
@@ -336,9 +372,14 @@ export const CommentBoard = (props: {
                 paddingRight: "0px",
               },
               endAdornment: (
-                <IconButton id="send-button" onClick={sendComment}>
-                  <SendIcon />
-                </IconButton>
+                <React.Fragment>
+                  <IconButton id="send-button" onClick={sendComment}>
+                    <SendIcon />
+                  </IconButton>
+                  <IconButton id="search-button" onClick={searchRefComment}>
+                    <SearchIcon />
+                  </IconButton>
+                </React.Fragment>
               ),
             }}
           />
