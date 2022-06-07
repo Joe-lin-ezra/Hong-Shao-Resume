@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +27,9 @@ public class AnonymousUserService {
 
     public Optional<AnonymousUser> findUserById(String id) {
         return anonymousUserRepository.findById(id);
+    }
+
+    public List<Object> findUsersByContainingNickname(String regEx) {
+        return anonymousUserRepository.filterAnonymousUsersByNickname(regEx);
     }
 }

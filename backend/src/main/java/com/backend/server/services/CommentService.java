@@ -31,20 +31,21 @@ public class CommentService {
   }
 
   public boolean checkExistById(String id) {
-      return commentRepository.existsById(id);
+    return commentRepository.existsById(id);
   }
 
   public Optional<Comment> findById(String id) {
-      return commentRepository.findById(id);
+    return commentRepository.findById(id);
   }
+
   public void deleteById(String id) {
     commentRepository.deleteById(id);
   }
 
   public void update(Comment comment, CommentDto commentDto) {
-      comment.setDescription(commentDto.getDescription());
-      comment.setUpdateDate(new Date());
-      commentRepository.save(comment);
+    comment.setDescription(commentDto.getDescription());
+    comment.setUpdateDate(new Date());
+    commentRepository.save(comment);
   }
 
   public List<CommentDto> addNickname(List<Comment> allComments) {
@@ -64,7 +65,38 @@ public class CommentService {
   }
 
   public void delete(Comment comment) {
-      commentRepository.deleteById(comment.getId());
+    commentRepository.deleteById(comment.getId());
   }
 
+  public List<Comment> findSpecificComments(String queryString) {
+    if (queryString.startsWith("@")) {
+      return findNicknameContains(queryString.replace("@", ""));
+    }
+    return findDescriptionContains(queryString);
+  }
+
+  public List<Comment> findDescriptionContains(String queryString) {
+    return commentRepository.findCommentsByDescriptionRegEx(queryString);
+  }
+
+  public List<Comment> findNicknameContains(String regEx) {
+    List<Object> users = generalUserService.findUsersByContainingNickname(regEx);
+    users.addAll(anonymousUserService.findUsersByContainingNickname(regEx));
+
+    System.out.println(users);
+    List<Comment> refComments = new ArrayList<>();
+    users.forEach((Object user)->{
+      if (user instanceof GeneralUser) {
+        String id = ((GeneralUser) user).getId();
+        List<Comment> comments = commentRepository.findAllByUserId(id);
+        refComments.addAll(comments);
+      }
+      else if (user instanceof AnonymousUser) {
+        String id = ((AnonymousUser) user).getId();
+        List<Comment> comments = commentRepository.findAllByUserId(id);
+        refComments.addAll(comments);
+      }
+    });
+    return refComments;
+  }
 }

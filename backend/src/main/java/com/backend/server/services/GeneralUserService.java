@@ -1,6 +1,7 @@
 package com.backend.server.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import com.backend.server.dto.AnonymousLoginDto;
@@ -85,5 +86,9 @@ public class GeneralUserService {
 
   public boolean checkUserExistById(String id) {
     return generalUserRepository.findById(id).isPresent();
+  }
+
+  public List<Object> findUsersByContainingNickname(String str) {
+    return generalUserRepository.filterUsersByContainingNickname(str);
   }
 }
