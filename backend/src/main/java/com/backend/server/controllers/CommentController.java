@@ -42,7 +42,6 @@ public class CommentController {
       return getAllComments();
     }
 
-
     try {
       String bearerToken = header.getFirst("Authorization");
       if (Objects.isNull(bearerToken) || !jwtUtil.validateJwtToken(bearerToken.split(" ")[1])) {
