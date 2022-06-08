@@ -3,6 +3,8 @@ com\backend\server\dto\LoginDto.class
 com\backend\server\dto\AnonymousLoginDto.class
 com\backend\server\swagger\OpenApiConfig.class
 com\backend\server\securities\SecurityConfig.class
+com\backend\server\models\user\GeneralUser$GeneralUserBuilder.class
+com\backend\server\models\user\GeneralUser.class
 com\backend\server\repositories\AnonymousUserRepository.class
 com\backend\server\controllers\CommentController.class
 com\backend\server\securities\xss\XSSRequestWrapper.class
