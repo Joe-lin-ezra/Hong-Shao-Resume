@@ -1,45 +1,59 @@
 # Joe, Lin Hong-Shao Resume
 
-## User Manual
+## 描述
 
-1. Install all modules used in project
-    Use cd to change the path to this project directory, 
-    and run install modules command.
+在這個專案中，我使用了「React」、「Spring Boot」、「MongoDB」進行開發，在履歷的專案中增加了登入、留言板的功能。  
+登入的部分除了一般的使用帳號或郵箱登入的方法外，也提供訪客登入的功能。倘若想使用一般的登入方式的話，尚須進行註冊；
+若使用訪客登入，則無需填寫帳號密碼，只需填寫暱稱即可，但若是登出，則再也無法利用該帳戶進行相關的操作。  
+留言功能中，查看留言的部分可直接使用，但若是需要進行其他功能，例如：「留言查找」、「新增」、「修改」、「刪除」
+，則需要登入，才能啟用。
+## 成果
 
-    ```code=bash
-    <!-- using npm -->
-    $ npm i
-    <!-- using yarn -->
-    $ yarn install
-    ```
+1. 登入
+    - 登入頁面
+        ![](./img/login.jpg)
+    - 若無輸入任何資料就送出
+        ![](./img/login-2.jpg)
+    - 登入失敗
+        ![](./img/login3.jpg)
+    - 訪客登入
+        ![](./img/anonymous.jpg)
 
-2. Start up service
-    After install the modules, run the below
-    command to start up project.
+2. 註冊
+    - 註冊頁面
+        ![](./img/signup.jpg)
 
-    ```code=bash
-    <!-- using npm -->
-    $ npm start
-    <!-- using yarn -->
-    $ yarn run start
-    ```
+3. 留言板
+    - 留言板。若是尚未登入，則無法使用其他功能
+        ![](./img/comment%20board.jpg)
+    - 留言查詢，使用一般文字查詢留言內容
+        ![](./img/comment_query_input.jpg)
+        ![](./img/commented_queried.jpg)
+    - 留言查詢，使用"@"查詢人名
+        ![](./img/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202022-06-07%20160209.jpg)
+        ![](./img/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202022-06-07%20160148.jpg)
+    - 輸入留言
+        ![](./img/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202022-06-07%20155842.jpg)
+        ![](./img/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202022-06-07%20155904.jpg)
+    - 修改留言，點擊修改後會直接將文字顯示於輸入框中，直接進行修改後送出即可(靈感取自於 Rocket.chat)
+        ![](./img/comment_choice.jpg)
+        ![](./img/comment_input.jpg)
+        ![](./img/comment_updated.jpg)
+    - 刪除留言
+        ![](./img/comment_choice.jpg)
+        ![](./img/comment_deleted.jpg)
 
-3. open the url: localhost:(port)/home
 
-## Description
+4. 後端頁面
+    - Swagger API 頁面
+        ![](./img/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202022-06-08%20182414.jpg)
 
-* The project is for Monosparta 31/3/2022 homework.
 
-* This resume temporarily complete the home page without perfectly responsive design, which means this project pages is recommended to be opened in computer-screen size browser.
+## 自我檢討www
 
-* If you enter random path
-  1. the system may return a 404-not-found page 
-  2. the system may return a under-construct page
-
-    all the above-mentioned pages can be clicked, and will redirect to home page.
-
-## Future
-
-In the future, I will refactor the home page, so that it will with readability, and maintainability.
-
-Besides, I will complete the other pages, like a biography page, a cv page, a hero-landing page, a project-experience page, and so on.
+- 留言時顯示的時間沒有更改，為 UTC+0 的時間
+- Swagger API 頁面沒有更多的訊息，完全是一個很基礎的頁面
+- 刪除時沒有雙重確認，單點即刪除
+- 版面跑掉了(不要逼我  ಥ_ಥ )
+- 還有很多可以修改的我知道
+- 之前的錯字我也還沒改.........
